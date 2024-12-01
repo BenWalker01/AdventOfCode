@@ -5,8 +5,14 @@ list1 = sorted([int(d.split("   ")[0]) for d in data])
 list2 = sorted([int(d.split("   ")[1]) for d in data])
 
 
-sum_ = 0
+answer = 0
 for a,b in zip(list1,list2):
-    sum_ += abs(a-b)
+    answer += abs(a-b)
 
-print(sum_)
+print(f"Part 1: {answer}")
+answer = 0
+
+for num in list1:
+    answer += num * list2.count(num)
+
+print(f"Part 2: {answer}") 
