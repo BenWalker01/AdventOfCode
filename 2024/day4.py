@@ -26,3 +26,20 @@ diags.extend(data.diagonal(i) for i in range(cols-1, -rows, -1))
 for n in diags:
     answer += "".join(n.tolist()).count("XMAS")
     answer += "".join(n.tolist()).count("SAMX")
+
+
+with open("day4.txt", "r")as f:
+    data = f.read().splitlines()
+data = [list(d) for d in data]
+
+answer = 0
+for i, row in enumerate(data):
+    for j, letter in enumerate(row):
+        if letter == "A":
+            try:
+                if (data[i-1][j-1] == "M" and data[i+1][j+1] == "S" or data[i-1][j-1] == "S" and data[i+1][j+1] == "M") and (data[i-1][j+1] == "M" and data[i+1][j-1] == "S" or data[i-1][j+1] == "S" and data[i+1][j-1] == "M"):
+                    answer += 1
+            except:
+                pass
+
+print(answer - 1)  # don't ask why
