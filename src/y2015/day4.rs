@@ -1,4 +1,3 @@
-use hex_literal::hex;
 use md5;
 use rayon::prelude::*;
 

@@ -16,7 +16,7 @@
           "kind": "bin"
         }
       },
-      "args": ["solve", "2015/1"],
+      "args": ["solve", "2015/6"],
       "cwd": "${workspaceFolder}",
       "stopOnEntry": false,
       "console": "integratedTerminal",
@@ -37,7 +37,7 @@
           "kind": "bin"
         }
       },
-      "args": ["solve", "2015/2"],
+      "args": ["solve", "2015/6"],
       "cwd": "${workspaceFolder}",
       "stopOnEntry": false,
       "console": "integratedTerminal",
