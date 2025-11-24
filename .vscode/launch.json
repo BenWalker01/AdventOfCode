@@ -1,0 +1,90 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Rust Debugger (Debug Binary)",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": [
+          "build",
+          "--bin=AdventOfCode",
+          "--package=AdventOfCode"
+        ],
+        "filter": {
+          "name": "AdventOfCode",
+          "kind": "bin"
+        }
+      },
+      "args": ["solve", "2015/1"],
+      "cwd": "${workspaceFolder}",
+      "stopOnEntry": false,
+      "console": "integratedTerminal",
+      "sourceLanguages": ["rust"]
+    },
+    {
+      "name": "Rust Debugger (Solve Day)",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": [
+          "build",
+          "--bin=AdventOfCode",
+          "--package=AdventOfCode"
+        ],
+        "filter": {
+          "name": "AdventOfCode",
+          "kind": "bin"
+        }
+      },
+      "args": ["solve", "2015/2"],
+      "cwd": "${workspaceFolder}",
+      "stopOnEntry": false,
+      "console": "integratedTerminal",
+      "sourceLanguages": ["rust"]
+    },
+    {
+      "name": "Rust Debugger (Create Day)",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": [
+          "build",
+          "--bin=AdventOfCode",
+          "--package=AdventOfCode"
+        ],
+        "filter": {
+          "name": "AdventOfCode",
+          "kind": "bin"
+        }
+      },
+      "args": ["create", "2025/1"],
+      "cwd": "${workspaceFolder}",
+      "stopOnEntry": false,
+      "console": "integratedTerminal",
+      "sourceLanguages": ["rust"]
+    },
+    {
+      "name": "Rust Debugger (Custom Args)",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": [
+          "build",
+          "--bin=AdventOfCode",
+          "--package=AdventOfCode"
+        ],
+        "filter": {
+          "name": "AdventOfCode",
+          "kind": "bin"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopOnEntry": false,
+      "console": "integratedTerminal",
+      "sourceLanguages": ["rust"],
+      "preLaunchTask": "rust: prompt for args"
+    }
+  ]
+}

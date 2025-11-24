@@ -1,0 +1,53 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "rust: prompt for args",
+      "type": "shell",
+      "command": "echo",
+      "args": ["Configure args in launch.json 'args' array"],
+      "problemMatcher": []
+    },
+    {
+      "label": "rust: build debug",
+      "type": "cargo",
+      "command": "build",
+      "args": [
+        "--bin=AdventOfCode",
+        "--package=AdventOfCode"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$rustc"
+      ]
+    },
+    {
+      "label": "rust: run with args",
+      "type": "shell",
+      "command": "cargo",
+      "args": [
+        "run",
+        "--bin=AdventOfCode",
+        "--",
+        "${input:rustArgs}"
+      ],
+      "group": {
+        "kind": "test"
+      },
+      "problemMatcher": [
+        "$rustc"
+      ]
+    }
+  ],
+  "inputs": [
+    {
+      "id": "rustArgs",
+      "type": "promptString",
+      "description": "Enter arguments for the Rust binary (e.g., solve 2015/1)",
+      "default": "solve 2015/1"
+    }
+  ]
+}
