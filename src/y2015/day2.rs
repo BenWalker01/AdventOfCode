@@ -23,5 +23,20 @@ fn part1(input: &str) -> String {
 }
 
 fn part2(input: &str) -> String {
-    "TODO".to_string()
+    let total: i32 = input
+        .trim()
+        .lines()
+        .map(|line| {
+            let mut dims: Vec<i32> = line
+                .split('x')
+                .map(|s| s.parse::<i32>().expect("Invalid Number"))
+                .collect();
+            dims.sort();
+            let l = dims[0];
+            let w = dims[1];
+            let h = dims[2];
+            2 * l + 2 * w + l * w * h
+        })
+        .sum();
+    total.to_string()
 }

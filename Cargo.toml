@@ -10,6 +10,9 @@ today = []
 [dependencies]
 regex = "1"
 pico-args = "0.5"
+hex-literal = "1.1.0"
+md5 = "0.8.0"
+rayon = "1.11.0"
 
 [profile.release]
 opt-level = 3
