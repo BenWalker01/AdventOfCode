@@ -1,5 +1,6 @@
 mod args;
 mod y2015;
+mod y2025;
 
 fn main() {
     match args::parse() {

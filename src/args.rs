@@ -3,6 +3,7 @@ use std::process;
 use std::path::Path;
 use std::fs;
 use crate::y2015;
+use crate::y2025;
 
 #[derive(Debug, Clone, Copy)]
 pub struct Day {
@@ -70,6 +71,10 @@ fn solve_day(day: Day, _release: bool) {
         (2015, 8) => y2015::day8::solve(&input),
         (2015, 9) => y2015::day9::solve(&input),
         (2015, 10) => y2015::day10::solve(&input),
+        (2015, 11) => y2015::day11::solve(&input),
+        (2015, 12) => y2015::day12::solve(&input),
+        (2015, 13) => y2015::day13::solve(&input),
+        (2025, 1) => y2025::day1::solve(&input),
         _ => eprintln!("No solver found for {}/{}", day.year, day.day),
     }
 }
