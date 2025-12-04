@@ -78,6 +78,8 @@ fn solve_day(day: Day, _release: bool) {
         (2025, 2) => y2025::day2::solve(&input),
         (2015, 14) => y2015::day14::solve(&input),
         (2025, 3) => y2025::day3::solve(&input),
+        (2015, 15) => y2015::day15::solve(&input),
+        (2025, 4) => y2025::day4::solve(&input),
         _ => eprintln!("No solver found for {}/{}", day.year, day.day),
     }
 }
