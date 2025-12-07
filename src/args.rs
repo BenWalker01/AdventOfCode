@@ -1,9 +1,9 @@
-use pico_args::Arguments;
-use std::process;
-use std::path::Path;
-use std::fs;
 use crate::y2015;
 use crate::y2025;
+use pico_args::Arguments;
+use std::fs;
+use std::path::Path;
+use std::process;
 
 #[derive(Debug, Clone, Copy)]
 pub struct Day {
@@ -59,7 +59,7 @@ fn solve_day(day: Day, _release: bool) {
         eprintln!("Warning: input file not found at {}", input_path);
         String::new()
     });
-    
+
     match (day.year, day.day) {
         (2015, 1) => y2015::day1::solve(&input),
         (2015, 2) => y2015::day2::solve(&input),
@@ -78,9 +78,9 @@ fn solve_day(day: Day, _release: bool) {
         (2025, 2) => y2025::day2::solve(&input),
         (2015, 14) => y2015::day14::solve(&input),
         (2025, 3) => y2025::day3::solve(&input),
-        (2015, 15) => y2015::day15::solve(&input),
         (2025, 4) => y2025::day4::solve(&input),
         (2025, 5) => y2025::day5::solve(&input),
+        (2025, 6) => y2025::day6::solve(&input),
         _ => eprintln!("No solver found for {}/{}", day.year, day.day),
     }
 }
@@ -101,17 +101,15 @@ fn create_day(day: Day) {
     // Create src/yYYYY directory if it doesn't exist
     if !Path::new(&src_dir).exists() {
         fs::create_dir_all(&src_dir).expect("Failed to create source directory");
-        
+
         // Create .keep file
-        fs::write(format!("{}/.keep", src_dir), "")
-            .expect("Failed to create .keep file");
+        fs::write(format!("{}/.keep", src_dir), "").expect("Failed to create .keep file");
 
         // Create mod.rs file
-        fs::write(&mod_file, "")
-            .expect("Failed to create mod.rs file");
-        
+        fs::write(&mod_file, "").expect("Failed to create mod.rs file");
+
         println!("Created directory and mod.rs: {}", src_dir);
-        
+
         // Update main.rs to include the year module
         update_main_rs_for_year(day.year);
     }
@@ -119,35 +117,29 @@ fn create_day(day: Day) {
     // Create input/YYYY directory if it doesn't exist
     if !Path::new(&input_dir).exists() {
         fs::create_dir_all(&input_dir).expect("Failed to create input directory");
-        
+
         // Create .keep file
-        fs::write(format!("{}/.keep", input_dir), "")
-            .expect("Failed to create .keep file");
-        
+        fs::write(format!("{}/.keep", input_dir), "").expect("Failed to create .keep file");
+
         println!("Created directory: {}", input_dir);
     }
 
     // Copy template to src/yYYYY/dayX.rs
-    let template = fs::read_to_string("template")
-        .expect("Failed to read template file");
-    fs::write(&src_file, template)
-        .expect("Failed to create day source file");
+    let template = fs::read_to_string("template").expect("Failed to read template file");
+    fs::write(&src_file, template).expect("Failed to create day source file");
     println!("Created: {}", src_file);
 
     // Create empty input file
-    fs::write(&input_file, "")
-        .expect("Failed to create input file");
+    fs::write(&input_file, "").expect("Failed to create input file");
     println!("Created: {}", input_file);
 
     // Update mod.rs to include the new day module
-    let mut mod_content = fs::read_to_string(&mod_file)
-        .expect("Failed to read mod.rs file");
-    
+    let mut mod_content = fs::read_to_string(&mod_file).expect("Failed to read mod.rs file");
+
     let mod_line = format!("pub mod day{};\n", day.day);
     if !mod_content.contains(&mod_line) {
         mod_content.push_str(&mod_line);
-        fs::write(&mod_file, mod_content)
-            .expect("Failed to update mod.rs file");
+        fs::write(&mod_file, mod_content).expect("Failed to update mod.rs file");
         println!("Updated: {}", mod_file);
     }
 
@@ -157,8 +149,7 @@ fn create_day(day: Day) {
 
 fn update_main_rs_for_year(year: u32) {
     let main_file = "src/main.rs";
-    let mut content = fs::read_to_string(main_file)
-        .expect("Failed to read main.rs file");
+    let mut content = fs::read_to_string(main_file).expect("Failed to read main.rs file");
 
     let module_line = format!("mod y{};", year);
     if !content.contains(&module_line) {
@@ -166,21 +157,19 @@ fn update_main_rs_for_year(year: u32) {
         let insert_after = "mod y2015;";
         let new_modules = format!("mod y2015;\nmod y{};", year);
         content = content.replace(insert_after, &new_modules);
-        
-        fs::write(main_file, content)
-            .expect("Failed to update main.rs file");
+
+        fs::write(main_file, content).expect("Failed to update main.rs file");
         println!("Updated: {}", main_file);
     }
 }
 
 fn update_args_for_day(day: Day) {
     let args_file = "src/args.rs";
-    let mut content = fs::read_to_string(args_file)
-        .expect("Failed to read args.rs file");
+    let mut content = fs::read_to_string(args_file).expect("Failed to read args.rs file");
 
     let module_name = format!("y{}", day.year);
     let day_name = format!("day{}", day.day);
-    
+
     // Check if the year module is imported
     let import_line = format!("use crate::{};", module_name);
     if !content.contains(&import_line) {
@@ -188,13 +177,13 @@ fn update_args_for_day(day: Day) {
         // Find the last use crate::yXXXX line
         let lines: Vec<&str> = content.lines().collect();
         let mut insert_at_line = 0;
-        
+
         for (i, line) in lines.iter().enumerate() {
             if line.contains("use crate::y") && !line.contains("//") {
                 insert_at_line = i + 1;
             }
         }
-        
+
         if insert_at_line > 0 && insert_at_line <= lines.len() {
             let mut new_lines = lines[..insert_at_line].to_vec();
             new_lines.push(&import_line);
@@ -206,12 +195,13 @@ fn update_args_for_day(day: Day) {
     // Find the wildcard pattern in the solve_day function match statement and add the new case
     let old_wildcard = "        _ => eprintln!(\"No solver found for {}/{}\", day.year, day.day),";
     if content.contains(old_wildcard) {
-        let new_case = format!("        ({}, {}) => {}::{}::solve(&input),\n{}", 
-            day.year, day.day, module_name, day_name, old_wildcard);
+        let new_case = format!(
+            "        ({}, {}) => {}::{}::solve(&input),\n{}",
+            day.year, day.day, module_name, day_name, old_wildcard
+        );
         content = content.replace(old_wildcard, &new_case);
-        
-        fs::write(args_file, content)
-            .expect("Failed to update args.rs file");
+
+        fs::write(args_file, content).expect("Failed to update args.rs file");
         println!("Updated: {}", args_file);
     }
 }
@@ -255,4 +245,3 @@ pub fn parse() -> Result<Command, Box<dyn std::error::Error>> {
 
     Ok(command)
 }
-
